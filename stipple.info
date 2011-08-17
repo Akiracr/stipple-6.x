@@ -1,0 +1,4 @@
+name = Stipple
+description = Add Stipple Javascript to all pages.  Requires a free account with Stippleit.com 
+core = 6.x
+configure = admin/stipple/configure

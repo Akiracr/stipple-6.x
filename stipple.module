@@ -1,0 +1,51 @@
+<?php
+// $Id$
+  
+/*
+ * @file
+ * Drupal Module: Stipple
+ * Installs the default stipple.js to the bottom of all the site pages
+ * @author: Sumit Gupta <sumit@stippleit.com>
+ * @author: Maximiliano Mendez <maxmv@maxmendez.net>
+*/
+ 
+function stipple_menu() {
+  $items['admin/settings/sttiple'] = array(
+    'title' => 'Stipple',
+    'description' => 'Configure the settings used to install Stipple on your site.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('stipple_admin_settings_form'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+ 
+  return $items;
+}
+
+
+
+ 
+function stipple_admin_settings_form(&$form_state) { 
+  $form['stipple_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Stipple ID'),
+    '#default_value' => variable_get('stipple_id', ''),
+    '#size' => 20,
+    '#maxlength' => 100,
+    '#required' => TRUE,
+    '#description' => t('Your Site ID. Check your <a href="@url">dashboard</a> if you need to find this.', array('@url' => 'http://stippleit.com/dashboard')),
+  );
+  
+  return system_settings_form($form);
+}
+ 
+function stipple_init() {
+  $script = "";
+  $id = variable_get('stipple_id', '');
+ 
+  if ($id) {
+	drupal_add_js('https://stippleit.com/stipple.js', 'external');
+	$script = 'STIPPLE.load(\'' . $id . '\');';
+    drupal_add_js($script, 'inline', 'footer');
+  }
+}

@@ -1,0 +1,15 @@
+<?php
+// $Id$
+ 
+/**
+ * @file
+ * Installation file for Stipple module.
+ */
+ 
+function stipple_install() {
+  variable_set('stipple_id', '');
+}
+ 
+function stipple_uninstall() {
+  variable_del('stipple_id');
+}
